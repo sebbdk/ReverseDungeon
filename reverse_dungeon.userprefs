@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Hero.cs">
+    <Files>
+      <File FileName="Assets\BladeMove.cs" Line="57" Column="29" />
+      <File FileName="Assets\GameController.cs" Line="32" Column="35" />
+      <File FileName="Assets\MusicController.cs" Line="17" Column="10" />
+      <File FileName="Assets\FreezeOnHit.cs" Line="13" Column="4" />
+      <File FileName="Assets\Hero.cs" Line="23" Column="12" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
