@@ -30,6 +30,7 @@ public class Hero : MonoBehaviour {
 	void OnGameStart() {
 		print ("start!!!!");
 		canMove = true;
+		GetComponent<Animator> ().SetBool ("moving", true);
 	}
 
 	void renderHealth() {
