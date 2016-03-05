@@ -11,9 +11,27 @@ public class BladeMove : MonoBehaviour {
 
 	private bool isReversed;
 
+	Camera camera;
+	float shake = 0f;
+	float shakeAmount = 0.01f;
+	float decreaseFactor = 0.1f;
+
+	bool hittingHero;
+
+	void Start() {
+		camera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera>();
+	}
+
 	void OnTriggerEnter2D(Collider2D collider) {
 		if (canDamage && collider.tag == "Hero" && collider.transform.position.y > transform.position.y) {
 			collider.SendMessage("OnHit", gameObject);
+			shakeAmount = 0.05f;
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D collider) {
+		if (collider.tag == "Hero" && collider.transform.position.y > transform.position.y) {
+			shakeAmount = 0.01f;
 		}
 	}
 
@@ -44,18 +62,33 @@ public class BladeMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
+
+		if (shake > 0) {
+			camera.transform.localPosition = new Vector3 (3,-5,-10) + ( Random.insideUnitSphere * shakeAmount);
+			shake -= Time.deltaTime * decreaseFactor;
+		} else {
+			shake = 0.0f;
+		}
+
+
 		Vector2 vel = new Vector2();
 
 		if (following && canMove) {
-			Vector3 pos =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			shake = hittingHero ? 2:1;
 
-			if(pos.x > transform.localPosition.x) {
+			Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+
+			if (pos.x > transform.localPosition.x) {
 				vel.x = horizontalSpeed;
 			}
 
-			if(pos.x < transform.localPosition.x) {
+			if (pos.x < transform.localPosition.x) {
 				vel.x = -horizontalSpeed;
 			}
+		} else {
+			shake = 0;
 		}
 
 		GetComponent<Rigidbody2D>().velocity = vel;

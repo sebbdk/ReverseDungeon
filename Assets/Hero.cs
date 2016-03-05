@@ -6,7 +6,7 @@ public class Hero : MonoBehaviour {
 	private GameObject goal;
 	private bool canMove;
 
-	private float moveSpeed = 1f;
+	public float moveSpeed = 1f;
 
 	public int health = 0;
 
