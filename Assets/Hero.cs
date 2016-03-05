@@ -13,6 +13,7 @@ public class Hero : MonoBehaviour {
 	public GameObject[] hearts;
 
 	private AudioSource audio;
+	private bool isDead;
 
 	public AudioClip hurtSound;
 
@@ -48,7 +49,8 @@ public class Hero : MonoBehaviour {
 
 		renderHealth ();
 
-		if (health < 0) {
+		if (health < 0 && !isDead) {
+			isDead = true;
 			audio.Play ();
 			GetComponent<Animator>().SetBool("is_dead", true);
 
@@ -60,9 +62,6 @@ public class Hero : MonoBehaviour {
 	IEnumerator WaitThenCleanup() {
 		yield return new WaitForSeconds(2);
 		GameController.deathCount++;
-
-		print ("not active!!");
-		//gameObject.SetActive (false);
 		
 		yield return null;
 	}
