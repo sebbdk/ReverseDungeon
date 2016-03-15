@@ -35,11 +35,18 @@ public class BladeMove : MonoBehaviour {
 		return true;
 	}
 
+	IEnumerator WaitXThenRemove(int instanceID) {
+		yield return new WaitForSeconds (1);
+		hitInstances.Remove (instanceID);
+		yield return null;
+	}
+
 	void OnTriggerEnter2D(Collider2D collider) {
 		if (isFirstInstanceHit(collider.gameObject.GetInstanceID()) && canDamage && collider.tag == "Hero" && collider.transform.position.y > transform.position.y) {
 			collider.SendMessage("OnHit", gameObject);
 			shakeAmount = 0.05f;
 			hitInstances.Add (collider.gameObject.GetInstanceID());
+			StartCoroutine("WaitXThenRemove", collider.gameObject.GetInstanceID());
 		}
 	}
 

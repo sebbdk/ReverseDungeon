@@ -4,7 +4,7 @@ using System.Collections;
 public class Hero : MonoBehaviour {
 
 	private GameObject goal;
-	private bool canMove;
+	protected bool canMove;
 
 	public float moveSpeed = 1f;
 
@@ -18,7 +18,7 @@ public class Hero : MonoBehaviour {
 	public AudioClip hurtSound;
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
 		goal = GameObject.FindGameObjectWithTag ("Goal");
 		renderHealth ();
 
@@ -43,7 +43,7 @@ public class Hero : MonoBehaviour {
 		}
 	}
 
-	void OnHit(GameObject theAssholeWhoHitMe) {
+	public void OnHit(GameObject theAssholeWhoHitMe) {
 		health--;
 
 		renderHealth ();

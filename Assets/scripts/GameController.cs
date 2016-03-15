@@ -66,6 +66,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void Lose() {
+		
 		if (!LoseBtn.activeSelf) {
 			StartCoroutine("WaitThenShowGameOver");
 		}
@@ -73,9 +74,7 @@ public class GameController : MonoBehaviour {
 	
 	IEnumerator WaitThenShowGameOver() {
 		yield return new WaitForSeconds(1);
-		
 		LoseBtn.SetActive (true);
-		
 		yield return null;
 	}
 
