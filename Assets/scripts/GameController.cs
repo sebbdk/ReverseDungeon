@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour {
 	public GameObject WinBtn;
 	public GameObject LoseBtn;
 
+	public int heroCount = 0;
+
 	public static int deathCount = 0;
 
 
@@ -23,6 +25,8 @@ public class GameController : MonoBehaviour {
 
 		Debug.Log ("Hero count!");
 		Debug.Log (heroes.Length);
+
+		heroCount = heroes.Length;
 
 		deathCount = 0;
 		instance = this;
@@ -78,8 +82,8 @@ public class GameController : MonoBehaviour {
 		yield return null;
 	}
 
-	void Update () {
-		if (deathCount >= heroes.Length) {
+	void FixedUpdate () {
+		if (deathCount >= heroCount) {
 			WinBtn.SetActive (true);
 		}
 	}

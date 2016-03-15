@@ -51,22 +51,26 @@ public class Hero : MonoBehaviour {
 		if (health < 0 && !isDead) {
 			isDead = true;
 			audio.Play ();
-			GetComponent<Animator>().SetBool("is_dead", true);
+			GetComponent<Animator> ().SetBool ("is_dead", true);
 
 			canMove = false;
-			StartCoroutine("WaitThenCleanup");
+			StartCoroutine ("WaitThenCleanup");
+
+		} 
+
+		if(health >= 0) {
+			GetComponent<Animator> ().Play ("damage");
 		}
 	}
-	
+
 	IEnumerator WaitThenCleanup() {
 		yield return new WaitForSeconds(2);
 		GameController.deathCount++;
-		
 		yield return null;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Rigidbody2D body = GetComponent<Rigidbody2D> ();
 		if (canMove) {
 			Vector2 vel = new Vector2 (0, -moveSpeed);
@@ -119,6 +123,7 @@ public class Hero : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider) {
 		if (collider.tag == "Goal") {
 			GameController.instance.Lose ();
+			GetComponent<Animator> ().SetBool ("won", true);
 		}
 	}
 }

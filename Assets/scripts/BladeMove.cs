@@ -83,9 +83,6 @@ public class BladeMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
-
 		if (shake > 0) {
 			camera.transform.localPosition = new Vector3 (3,-5,-10) + ( Random.insideUnitSphere * shakeAmount);
 			shake -= Time.deltaTime * decreaseFactor;
@@ -110,6 +107,14 @@ public class BladeMove : MonoBehaviour {
 			}
 		} else {
 			shake = 0;
+		}
+
+		if (transform.position.x < 0.7f && vel.x < 0) {
+			vel.x *= -1;
+		}
+
+		if (transform.position.x > 5.2f && vel.x > 0) {
+			vel.x *= -1;
 		}
 
 		GetComponent<Rigidbody2D>().velocity = vel;
