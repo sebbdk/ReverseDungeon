@@ -24,10 +24,12 @@ public class DashingDarious : Hero {
 	IEnumerator ResetAndSpawn() {
 		canMove = false;
 		iTween.MoveTo(gameObject, initialPosition, 1f);
+		GetComponent<Animator> ().SetBool ("moving", false);
 
 		yield return new WaitForSeconds(5);
 
 		canMove = true;
+		GetComponent<Animator> ().SetBool ("moving", true);
 
 		yield return null;
 	}
