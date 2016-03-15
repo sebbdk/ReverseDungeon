@@ -28,8 +28,7 @@ public class Hero : MonoBehaviour {
 		}
 	}
 
-	void OnGameStart() {
-		print ("start!!!!");
+	public void OnGameStart() {
 		canMove = true;
 		GetComponent<Animator> ().SetBool ("moving", true);
 	}
@@ -105,15 +104,21 @@ public class Hero : MonoBehaviour {
 			}
 
 			//Stop if there
-			if (Vector2.Distance (transform.position, goal.transform.position) < 0.5) {
+			if (Vector2.Distance (transform.position, goal.transform.position) < 0.2) {
 				vel = new Vector2 ();
-				GameController.instance.Lose ();
+				GetComponent<Animator> ().SetBool ("moving", false);
 			}
 
 			//Move down otherwise.
 			body.velocity = vel;
 		} else {
 			body.velocity = new Vector2();
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		if (collider.tag == "Goal") {
+			GameController.instance.Lose ();
 		}
 	}
 }

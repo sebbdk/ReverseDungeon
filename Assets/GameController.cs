@@ -61,6 +61,10 @@ public class GameController : MonoBehaviour {
 		Application.LoadLevel(Application.loadedLevel);
 	}
 
+	public void goHome() {
+		Application.LoadLevel(0);
+	}
+
 	public void Lose() {
 		if (!LoseBtn.activeSelf) {
 			StartCoroutine("WaitThenShowGameOver");
