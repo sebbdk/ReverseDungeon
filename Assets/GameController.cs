@@ -31,13 +31,16 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void BeginGame() {
-		StartBtn.SetActive (false);
+		StartBtn.GetComponent<Animator> ().SetBool ("triggered", true);
 
 		StartCoroutine("WaitThenStart");
 	}
 
 	IEnumerator WaitThenStart() {
-		yield return new WaitForSeconds(4);
+		yield return new WaitForSeconds(1);
+		StartBtn.SetActive (false);
+		yield return new WaitForSeconds(3);
+
 
 		foreach (GameObject hero in heroes) {
 			hero.SendMessage("OnGameStart");

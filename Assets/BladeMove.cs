@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BladeMove : MonoBehaviour {
 	
@@ -18,14 +19,27 @@ public class BladeMove : MonoBehaviour {
 
 	bool hittingHero;
 
+	List<int> hitInstances = new List<int>();
+
 	void Start() {
 		camera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera>();
 	}
 
+	bool isFirstInstanceHit(int instanceID) {
+		foreach (int hitInstanceID in hitInstances) {
+			if (instanceID == hitInstanceID) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	void OnTriggerEnter2D(Collider2D collider) {
-		if (canDamage && collider.tag == "Hero" && collider.transform.position.y > transform.position.y) {
+		if (isFirstInstanceHit(collider.gameObject.GetInstanceID()) && canDamage && collider.tag == "Hero" && collider.transform.position.y > transform.position.y) {
 			collider.SendMessage("OnHit", gameObject);
 			shakeAmount = 0.05f;
+			hitInstances.Add (collider.gameObject.GetInstanceID());
 		}
 	}
 
