@@ -72,7 +72,7 @@ public class Hero : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		Rigidbody2D body = GetComponent<Rigidbody2D> ();
-		if (canMove) {
+		if (canMove && !GameController.paused) {
 			Vector2 vel = new Vector2 (0, -moveSpeed);
 
 			//dodge blades

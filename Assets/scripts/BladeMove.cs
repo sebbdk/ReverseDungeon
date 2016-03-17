@@ -82,38 +82,39 @@ public class BladeMove : MonoBehaviour {
 
 		yield return null;
 	}
+
+	void Update () {
+		#if UNITY_EDITOR
+		if (Input.GetMouseButtonUp (0) || !Input.mousePresent) {
+			following = false;
+		}
+
+		if (Input.GetMouseButtonDown (0)) {
+			RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint((Input.mousePosition)), Vector2.zero);
+			if(hit.collider && hit.collider.gameObject == this.gameObject) {
+				following = true;
+			}
+		}
+		#else
+		foreach (Touch touch in Input.touches) {
+			if (touch.phase == TouchPhase.Began) {
+			RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint((touch.position)), Vector2.zero);
+				if(hit.collider && hit.collider.gameObject == this.gameObject) {
+					following = true;
+					currentTouchId = touch.fingerId;
+				}
+			}
+
+			if (touch.phase == TouchPhase.Ended && touch.fingerId == currentTouchId) {
+				following = false;
+				currentTouchId = -999;
+			}
+		}
+		#endif
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
-		#if UNITY_EDITOR
-			if (Input.GetMouseButtonUp (0)) {
-				following = false;
-			}
-
-			if (Input.GetMouseButtonDown (0)) {
-				RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint((Input.mousePosition)), Vector2.zero);
-				if(hit.collider && hit.collider.gameObject == this.gameObject) {
-					following = true;
-				}
-			}
-		#else
-			foreach (Touch touch in Input.touches) {
-				if (touch.phase == TouchPhase.Began) {
-					RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint((touch.position)), Vector2.zero);
-					if(hit.collider && hit.collider.gameObject == this.gameObject) {
-						following = true;
-						currentTouchId = touch.fingerId;
-					}
-				}
-
-				if (touch.phase == TouchPhase.Ended && touch.fingerId == currentTouchId) {
-					following = false;
-					currentTouchId = -999;
-				}
-			}
-		#endif
-
 		if (shake > 0) {
 			camera.transform.localPosition = new Vector3 (3,-5,-10) + ( Random.insideUnitSphere * shakeAmount);
 			shake -= Time.deltaTime * decreaseFactor;

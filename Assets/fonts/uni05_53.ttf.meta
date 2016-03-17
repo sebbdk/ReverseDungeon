@@ -3,16 +3,17 @@ guid: 204c21d93f012451ca7d790d25dbed0d
 timeCreated: 1428011366
 licenseType: Pro
 TrueTypeFontImporter:
-  serializedVersion: 2
+  serializedVersion: 3
   fontSize: 16
   forceTextureCase: -2
   characterSpacing: 1
   characterPadding: 0
   includeFontData: 1
-  use2xBehaviour: 0
   fontNames: []
+  fallbackFontReferences: []
   customCharacters: 
-  fontRenderingMode: 0
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
