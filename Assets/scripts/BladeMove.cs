@@ -84,7 +84,7 @@ public class BladeMove : MonoBehaviour {
 	}
 
 	void Update () {
-		#if UNITY_WEBGL || UNITY_EDITOR
+		#if UNITY_WEBGL || UNITY_EDITOR 
 		if (Input.GetMouseButtonUp (0) || !Input.mousePresent) {
 			following = false;
 		}
@@ -129,7 +129,7 @@ public class BladeMove : MonoBehaviour {
 			shake = hittingHero ? 2:1;
 
 			Vector3 pos;
-			#if UNITY_EDITOR
+			#if UNITY_WEBGL || UNITY_EDITOR
 				pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			#else
 				pos = Camera.main.ScreenToWorldPoint (Input.GetTouch(currentTouchId).position);

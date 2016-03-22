@@ -28,8 +28,21 @@ public class SebbTrack : MonoBehaviour
 		getInstance()._Track (slug, value.ToString());
 	}
 
+	private string GetPrefID() {
+		if (PlayerPrefs.GetString ("deviceUniqueIdentifier") == "") {
+			PlayerPrefs.SetString ("deviceUniqueIdentifier", System.Guid.NewGuid ().ToString ());
+		}
+
+		return PlayerPrefs.GetString ("deviceUniqueIdentifier");
+	}
+
 	public void _Track (String slug, String value) {
-		string id = SystemInfo.deviceUniqueIdentifier;
+		string id = "unkown";
+		#if UNITY_WEBGL
+			id = GetPrefID();
+		#else
+			id = SystemInfo.deviceUniqueIdentifier;
+		#endif
 		string url = "http://track.sebb.dk/points/add.json";
 
 		WWWForm form = new WWWForm();
