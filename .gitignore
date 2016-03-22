@@ -11,6 +11,11 @@ builds/Release
 sysinfo.txt
 *.stackdump
 
+Temp/
+Obj/
+Build
+Library/
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
